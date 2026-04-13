@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metal Print - Atendimento</title>
+    
+    <!-- Outfit Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --ocean-blue: #023e8a;
+            --black: #000000;
+            --white: #ffffff;
+            --glass-white: rgba(255, 255, 255, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        
+        body {
+            background-color: var(--black);
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ROBUST BACKGROUND IMAGE LAYER */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-color: var(--black);
+        }
+
+        .bg-layer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .page-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 420px;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .link-btn {
+            background-color: var(--glass-white);
+            width: 100%;
+            padding: 16px;
+            border-radius: 15px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .link-btn:hover {
+            transform: translateY(-5px);
+            background-color: var(--white);
+            border-color: var(--ocean-blue);
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        
+        .icon-box img { width: 100%; height: 100%; object-fit: contain; }
+
+        .btn-text {
+            color: var(--black);
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex: 1;
+            text-align: center;
+            padding-right: 48px;
+        }
+        
+        .link-btn:hover .btn-text { color: var(--ocean-blue); }
+
+        .social-row {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            background: var(--white);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .social-btn span {
+            color: var(--black);
+            font-weight: 800;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .social-btn img { width: 22px; height: 22px; }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            background: var(--ocean-blue);
+        }
+
+        .social-btn:hover span { color: var(--white); }
+
+        .footer { margin-top: 2rem; text-align: center; }
+        .footer p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body>
+    <!-- LAYER DE FUNDO COM DIAGNÓSTICO -->
+    <div class="bg-layer">
+        <img src="fundo.png" id="main-background" alt="Fundo">
+    </div>
+    <div class="page-overlay"></div>
+
+    <div class="container">
+        
+        <a href="https://wa.me/557398096203?text=Olá!%20Gostaria%20de%20fazer%20um%20orçamento." class="link-btn" target="_blank">
+            <div class="icon-box">
+                <img src="orcamento.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5968/5968841.png'">
+            </div>
+            <p class="btn-text">Orçamentos</p>
+        </a>
+
+        <a href="https://wa.me/557398096203?text=Olá!%20Gostaria%20de%20pedir%20produtos%20personalizados." class="link-btn" target="_blank">
+            <div class="icon-box">
+                <img src="custom.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1162/1162984.png'">
+            </div>
+            <p class="btn-text">Personalizados</p>
+        </a>
+
+        <div class="social-row">
+            <a href="https://www.instagram.com/Xxxx" class="social-btn" target="_blank">
+                <img src="insta.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/174/174855.png'">
+                <span>Instagram</span>
+            </a>
+            <a href="https://wa.me/557398096203" class="social-btn" target="_blank">
+                <img src="whats.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/733/733585.png'">
+                <span>WhatsApp</span>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>JONAS LUIS &bull; <b>METAL PRINT</b></p>
+        </div>
+    </div>
+
+    <script>
+        // SCRIPT DE DIAGNÓSTICO
+        const bgImg = document.getElementById('main-background');
+        
+        bgImg.onerror = function() {
+            console.error("ERRO: fundo.png não pôde ser carregado pelo navegador.");
+            // Alerta amigável para debug
+            document.body.style.backgroundColor = "darkred"; 
+            alert("AVISO: O navegador não conseguiu carregar 'fundo.png'. Verifique se o arquivo está na pasta correta.");
+        };
+
+        bgImg.onload = function() {
+            console.log("SUCESSO: fundo.png carregado com sucesso!");
+            document.body.style.backgroundColor = "black";
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Manutenção Atendimento MP
+Exec=python3 "/home/kyraxz/Site Atendimento MP/manutencao.py"
+Icon=utilities-terminal
+Terminal=true
+Type=Application
+Categories=Utility;
