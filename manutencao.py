@@ -5,8 +5,7 @@ import sys
 import time
 
 # --- CONFIGURAÇÃO ---
-# O usuário deve atualizar esta URL com a do seu Firebase
-FIREBASE_URL = "https://atendimento-mp-default-rtdb.firebaseio.com" 
+FIREBASE_URL = "https://almoxarifado-dacbe-default-rtdb.firebaseio.com" 
 
 def fb_request(path, method="GET", data=None):
     url = f"{FIREBASE_URL}/{path}.json"
@@ -24,8 +23,8 @@ def fb_request(path, method="GET", data=None):
 
 def show_menu():
     while True:
-        settings = fb_request("settings") or {}
-        m_mode = settings.get("maintenanceMode", False)
+        # Busca o status específico do Atendimento
+        m_mode = fb_request("settings/maintenanceAtendimento")
         
         print("\n" + "="*40)
         print("     METAL PRINT - CONTROLE ATENDIMENTO")
@@ -40,10 +39,10 @@ def show_menu():
         choice = input(" Escolha uma opção: ")
         
         if choice == '1':
-            fb_request("settings", "PATCH", {"maintenanceMode": True})
+            fb_request("settings", "PATCH", {"maintenanceAtendimento": True})
             print("\n✅ MODO MANUTENÇÃO ATIVADO!")
         elif choice == '2':
-            fb_request("settings", "PATCH", {"maintenanceMode": False})
+            fb_request("settings", "PATCH", {"maintenanceAtendimento": False})
             print("\n✅ SITE VOLTOU A FICAR ONLINE!")
         elif choice == '3':
             print("\nSaindo... Metal Print agradece.")

@@ -10,12 +10,58 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
     
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Firebase SDKs (Compatibility Mode) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
     <style>
         :root {
             --ocean-blue: #023e8a;
             --black: #000000;
             --white: #ffffff;
             --glass-white: rgba(255, 255, 255, 0.95);
+        }
+
+        /* MAINTENANCE SCREEN */
+        #maintenance-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--black);
+            color: var(--white);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 10000;
+            padding: 2rem;
+        }
+
+        #maintenance-screen h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--ocean-blue);
+            font-weight: 900;
+        }
+
+        .hammer-animate { 
+            animation: strike 0.8s infinite; 
+            transform-origin: bottom left;
+            margin-bottom: 2rem;
+            width: 64px;
+            height: 64px;
+            color: var(--ocean-blue);
+        }
+
+        @keyframes strike {
+            0% { transform: rotate(0deg); }
+            15% { transform: rotate(-35deg); }
+            25% { transform: rotate(45deg); }
+            35% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
@@ -197,6 +243,13 @@
     </style>
 </head>
 <body>
+    <!-- TELA DE MANUTENÇÃO -->
+    <div id="maintenance-screen">
+        <i data-lucide="hammer" class="hammer-animate"></i>
+        <h1>Site em Manutenção</h1>
+        <p>Aguarde enquanto o site volta para o Público.<br>Metal Print agradece!</p>
+    </div>
+
     <!-- LAYER DE FUNDO COM DIAGNÓSTICO -->
     <div class="bg-layer">
         <img src="fundo.png" id="main-background" alt="Fundo">
@@ -241,18 +294,37 @@
     </div>
 
     <script>
+        // CONFIGURAÇÃO FIREBASE
+        const firebaseConfig = {
+            databaseURL: "https://almoxarifado-dacbe-default-rtdb.firebaseio.com"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // LISTENER DE MANUTENÇÃO
+        const maintenanceRef = database.ref('settings/maintenanceAtendimento');
+        maintenanceRef.on('value', (snapshot) => {
+            const isMaintenance = snapshot.val();
+            const screen = document.getElementById('maintenance-screen');
+            if (isMaintenance) {
+                screen.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            } else {
+                screen.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // ÍCONES LUCIDE
+        lucide.createIcons();
+
         // SCRIPT DE DIAGNÓSTICO
         const bgImg = document.getElementById('main-background');
-        
         bgImg.onerror = function() {
-            console.error("ERRO: fundo.png não pôde ser carregado pelo navegador.");
-            // Alerta amigável para debug
+            console.error("ERRO: fundo.png não pôde ser carregado.");
             document.body.style.backgroundColor = "darkred"; 
-            alert("AVISO: O navegador não conseguiu carregar 'fundo.png'. Verifique se o arquivo está na pasta correta.");
         };
-
         bgImg.onload = function() {
-            console.log("SUCESSO: fundo.png carregado com sucesso!");
             document.body.style.backgroundColor = "black";
         };
     </script>
