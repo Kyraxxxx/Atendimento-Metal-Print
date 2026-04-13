@@ -17,6 +17,10 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
+    <!-- SECURITY SHIELD (CSP) -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+
     <style>
         :root {
             --ocean-blue: #023e8a;
@@ -327,6 +331,28 @@
         bgImg.onload = function() {
             document.body.style.backgroundColor = "black";
         };
+
+        // --- ANTIGRAVITY SECURITY SHIELD ---
+        // 1. Bloquear Clique Direito
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // 2. Bloquear Teclas de Inspeção (F12, Ctrl+U, Ctrl+Shift+I, etc)
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83 || (e.shiftKey && (e.keyCode == 73 || e.keyCode == 74))))) {
+                return false;
+            }
+        };
+
+        // 3. ARMADILHA DE DEBUGGER (LOOP ANTI-HACKER)
+        setInterval(function() {
+            const before = new Date().getTime();
+            debugger;
+            const after = new Date().getTime();
+            if (after - before > 100) {
+                document.body.innerHTML = "<div style='height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:black; color:#023e8a; text-align:center; padding:20px; font-family:sans-serif;'><h1>⚠️ ACESSO NEGADO ⚠️</h1><p>Violação de Segurança Detectada.</p></div>";
+                window.location.reload();
+            }
+        }, 1000);
     </script>
 </body>
 </html>
